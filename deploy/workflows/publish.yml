@@ -1,0 +1,55 @@
+# Кнопка «Опубликовать»: Actions → Опубликовать → Run workflow (ветка main).
+# Собирает main начисто и отправляет готовые страницы на сервер лендингов по SSH (rsync).
+# Положить в .github/workflows/publish.yml. Секреты — Settings → Secrets and variables → Actions:
+#   DEPLOY_HOST          адрес сервера
+#   DEPLOY_USER          пользователь, который может писать только в папку сайта
+#   DEPLOY_KEY           закрытый SSH-ключ этого пользователя (целиком, с BEGIN/END)
+#   DEPLOY_KNOWN_HOSTS   строка ssh-keyscan сервера — чтобы не отправить сайт на чужой сервер
+#   DEPLOY_PATH          папка сайта на сервере; при rrsync — «.» (можно не задавать)
+#   DEPLOY_PORT          порт SSH, если не 22 (можно не задавать)
+# Подробно — deploy/server.md.
+name: Опубликовать
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Проверки
+        run: python3 -m unittest discover tests -v
+      - name: Чистовая сборка
+        run: python3 build.py
+      - name: Ключ сервера
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          test -n "$DEPLOY_KEY" && test -n "$DEPLOY_KNOWN_HOSTS" || { echo "Нет секретов DEPLOY_KEY / DEPLOY_KNOWN_HOSTS"; exit 1; }
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+      - name: Отправить на сервер
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+        run: |
+          rsync -rlz --delete --chmod=D755,F644 \
+            -e "ssh -i $HOME/.ssh/deploy_key -p ${DEPLOY_PORT:-22} -o StrictHostKeyChecking=yes -o IdentitiesOnly=yes" \
+            _site/ "$DEPLOY_USER@$DEPLOY_HOST:${DEPLOY_PATH:-.}/"
+      - name: Убрать ключ
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
