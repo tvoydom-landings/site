@@ -1,0 +1,30 @@
+# Хранилище открытое: здесь только файлы сайта.
+# Сборка
+_site/
+_final/
+__pycache__/
+*.pyc
+# Ключи и пароли
+.env
+*.env
+*.pem
+*.key
+id_*
+*_deploy
+# Исходные документы и заметки
+documents/
+originals/
+notes/
+*.docx
+*.doc
+*.xlsx
+*.xlsm
+*.heic
+*.HEIC
+*.mov
+*.MOV
+*.mp4
+# Временные
+*.tmp
+*.bak
+.DS_Store
