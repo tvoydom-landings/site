@@ -1,0 +1,101 @@
+[
+  {
+    "code": "8-marta-69a-4",
+    "address": "ул. 8 Марта 69 А/4",
+    "village": "пгт Ильский",
+    "area": "78,5 м²",
+    "price": 5850000,
+    "telegram": "https://t.me/rodnik_development/1897",
+    "pic": false
+  },
+  {
+    "code": "azovskaya-16",
+    "address": "ул. Азовская 16",
+    "village": "пгт Ильский",
+    "area": "146,4 м²",
+    "price": 7500000,
+    "telegram": "https://t.me/rodnik_development/2166",
+    "pic": false
+  },
+  {
+    "code": "engelsa-81-26",
+    "address": "ул. Энгельса, 81/26",
+    "village": "ст. Северская",
+    "area": "155,1 м²",
+    "price": 8500000,
+    "telegram": "https://t.me/rodnik_development/2076",
+    "pic": false
+  },
+  {
+    "code": "engelsa-81-27",
+    "address": "ул. Энгельса, 81/27",
+    "village": "ст. Северская",
+    "area": "154,4 м²",
+    "price": 8500000,
+    "telegram": "https://t.me/rodnik_development/2086",
+    "pic": false
+  },
+  {
+    "code": "engelsa-81-28",
+    "address": "ул. Энгельса, 81/28",
+    "village": "ст. Северская",
+    "area": "141,8 м²",
+    "price": 8500000,
+    "telegram": "https://t.me/rodnik_development/2096",
+    "pic": false
+  },
+  {
+    "code": "engelsa-81-33",
+    "address": "ул. Энгельса, 81/33",
+    "village": "ст. Северская",
+    "area": "153,9 м²",
+    "price": 8500000,
+    "telegram": "https://t.me/rodnik_development/2106",
+    "pic": false
+  },
+  {
+    "code": "engelsa-81-34",
+    "address": "ул. Энгельса, 81/34",
+    "village": "ст. Северская",
+    "area": "155,6 м²",
+    "price": 8500000,
+    "telegram": "https://t.me/rodnik_development/2116",
+    "pic": false
+  },
+  {
+    "code": "engelsa-81-35",
+    "address": "ул. Энгельса, 81/35",
+    "village": "ст. Северская",
+    "area": "144 м²",
+    "price": 8500000,
+    "telegram": "https://t.me/rodnik_development/2126",
+    "pic": false
+  },
+  {
+    "code": "8-marta-69a-7",
+    "address": "ул. 8 Марта 69А/7",
+    "village": "пгт Ильский",
+    "area": "155,2 м²",
+    "price": 9000000,
+    "telegram": "https://t.me/rodnik_development/2136",
+    "pic": false
+  },
+  {
+    "code": "8-marta-69a-9",
+    "address": "ул. 8 Марта 69А/9",
+    "village": "пгт Ильский",
+    "area": "143,8 м²",
+    "price": 9000000,
+    "telegram": "https://t.me/rodnik_development/2146",
+    "pic": false
+  },
+  {
+    "code": "pshenichnaya-58",
+    "address": "ул. Пшеничная 58",
+    "village": "пгт Ильский",
+    "area": "199,9 м²",
+    "price": 10000000,
+    "telegram": null,
+    "pic": true
+  }
+]

@@ -1,0 +1,43 @@
+# Черновик: каждое изменение ветки draft → проверки → сборка с пометками и noindex → GitHub Pages.
+# Ссылка: https://tvoydom-landings.github.io/site/<код>/
+# Положить в .github/workflows/draft.yml (у ключа агента нет права Workflows — это делает человек).
+name: Черновик
+
+on:
+  push:
+    branches: [draft]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/draft'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Проверки
+        run: python3 -m unittest discover tests -v
+      - name: Сборка черновика
+        run: python3 build.py --draft
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
